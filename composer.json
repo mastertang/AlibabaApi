@@ -1,0 +1,21 @@
+{
+  "name":             "mastertang/AliApi",
+  "description": "调用阿里巴巴的Api",
+  "keywords":         ["Alibaba", "api"],
+  "time":             "2017-2-27",
+  "license" : "MIT",
+  "autoload":{
+    "psr-4":{
+      "AliApiPHP\\":"./"
+    }
+  },
+  "authors": [{
+    "name":         "RuiHua Tang",
+    "email":        "547740900@qq.com",
+    "homepage":     "https://github.com/",
+    "role":         "Programmer"
+  }],
+  "require":{
+        "php": ">=5.3.0"
+   }
+}
