@@ -1,5 +1,5 @@
 {
-  "name":             "mastertang/AliApi",
+  "name":             "mastertang/aliapi",
   "description": "调用阿里巴巴的Api",
   "keywords":         ["Alibaba", "api"],
   "time":             "2017-2-27",
