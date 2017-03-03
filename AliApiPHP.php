@@ -36,6 +36,29 @@ class AliApiPHP
         }
     }
 
+    public static function smsSend($data, $appCode)
+    {
+        try {
+            if (empty($data) || empty($appCode))
+                throw new AliApiException('ip和appCode不能空', AliApiException::PARAMS_NULL);
+            $host = "http://sms.market.alicloudapi.com";
+            $path = "/singleSendSms";
+            $headers = [];
+            array_push($headers, "Authorization:APPCODE " . $appCode);
+            $keys = array_keys($data);
+            $values = array_values($data);
+            foreach ($keys as $key => $value)
+                $keys[$key] = '#' . $key;
+            $querys = "ParamString=#ParamString&RecNum=#RecNum&SignName=#SignName&TemplateCode=#TemplateCode";
+            $querys = str_replace($keys, $values, $querys);
+            return self::aliApiResquestModule($host, $path, "GET", $querys, "", $headers);
+        } catch (\Exception $e) {
+            self::$exceptionCode = $e->getCode();
+            self::$exceptionMsg = $e->getMessage();
+            return false;
+        }
+    }
+
     /**
      * 根据电话号码获取ip地址
      * @param $phone
@@ -72,7 +95,7 @@ class AliApiPHP
      * @return bool|mixed
      * @throws AliApiException
      */
-    public static function checkPeopleFace($host, $path, $appCode,$imageData)
+    public static function checkPeopleFace($host, $path, $appCode, $imageData)
     {
         try {
             if (empty($host) || empty($path) || empty($appCode))
