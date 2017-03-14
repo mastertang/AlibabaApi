@@ -1,5 +1,5 @@
 <?php
-namespace AlibabaApi\Exception;
+namespace AliApiPHP\Exception;
 class AliApiException extends \Exception
 {
     const CURL_TIMEOUT = 0x1000;
