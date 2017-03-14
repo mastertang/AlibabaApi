@@ -1,7 +1,7 @@
 <?php
 namespace AliApiPHP;
 
-use AlibabaApi\Exception\AliApiException;
+use AliApiPHP\Exception\AliApiException;
 use think\Exception;
 
 class AliApiPHP
