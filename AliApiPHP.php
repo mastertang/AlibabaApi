@@ -2,13 +2,9 @@
 namespace AliApiPHP;
 
 use AliApiPHP\Exception\AliApiException;
-use think\Exception;
 
 class AliApiPHP
 {
-    public static $exceptionCode = 0;
-    public static $exceptionMsg = '';
-
     /**
      * 根据IP地址获取用户所有的地理地址
      * @param $ip
@@ -18,45 +14,33 @@ class AliApiPHP
      */
     public static function getAddressFromIp($ip, $appCode)
     {
-        try {
-            if (empty($ip) || empty($appCode))
-                throw new AliApiException('ip和appCode不能空', AliApiException::PARAMS_NULL);
-            else {
-                $host = "https://dm-81.data.aliyun.com";
-                $path = "/rest/160601/ip/getIpInfo.json";
-                $querys = "ip=" . $ip;
-                $headers = [];
-                array_push($headers, "Authorization:APPCODE " . $appCode);
-                return self::aliApiResquestModule($host, $path, "GET", $querys, "", $headers);
-            }
-        } catch (\Exception $e) {
-            self::$exceptionCode = $e->getCode();
-            self::$exceptionMsg = $e->getMessage();
-            return false;
+        if (empty($ip) || empty($appCode))
+            throw new AliApiException('ip和appCode不能空');
+        else {
+            $host = "https://dm-81.data.aliyun.com";
+            $path = "/rest/160601/ip/getIpInfo.json";
+            $querys = "ip=" . $ip;
+            $headers = [];
+            array_push($headers, "Authorization:APPCODE " . $appCode);
+            return self::aliApiResquestModule($host, $path, "GET", $querys, "", $headers);
         }
     }
 
     public static function smsSend($data, $appCode)
     {
-        try {
-            if (empty($data) || empty($appCode))
-                throw new AliApiException('ip和appCode不能空', AliApiException::PARAMS_NULL);
-            $host = "http://sms.market.alicloudapi.com";
-            $path = "/singleSendSms";
-            $headers = [];
-            array_push($headers, "Authorization:APPCODE " . $appCode);
-            $keys = array_keys($data);
-            $values = array_values($data);
-            foreach ($keys as $key => $value)
-                $keys[$key] = '#' . $key;
-            $querys = "ParamString=#ParamString&RecNum=#RecNum&SignName=#SignName&TemplateCode=#TemplateCode";
-            $querys = str_replace($keys, $values, $querys);
-            return self::aliApiResquestModule($host, $path, "GET", $querys, "", $headers);
-        } catch (\Exception $e) {
-            self::$exceptionCode = $e->getCode();
-            self::$exceptionMsg = $e->getMessage();
-            return false;
-        }
+        if (empty($data) || empty($appCode))
+            throw new AliApiException('ip和appCode不能空');
+        $host = "http://sms.market.alicloudapi.com";
+        $path = "/singleSendSms";
+        $headers = [];
+        array_push($headers, "Authorization:APPCODE " . $appCode);
+        $keys = array_keys($data);
+        $values = array_values($data);
+        foreach ($keys as $key => $value)
+            $keys[$key] = '#' . $key;
+        $querys = "ParamString=#ParamString&RecNum=#RecNum&SignName=#SignName&TemplateCode=#TemplateCode";
+        $querys = str_replace($keys, $values, $querys);
+        return self::aliApiResquestModule($host, $path, "GET", $querys, "", $headers);
     }
 
     /**
@@ -68,21 +52,15 @@ class AliApiPHP
      */
     public static function getIpAddrFromPhoneNumber($phone, $appCode)
     {
-        try {
-            if (empty($phone) || empty($appCode))
-                throw new AliApiException('phone和appCode不能空', AliApiException::PARAMS_NULL);
-            else {
-                $host = "http://jisushouji.market.alicloudapi.com";
-                $path = "/shouji/query";
-                $querys = "shouji=" . $phone;
-                $headers = [];
-                array_push($headers, "Authorization:APPCODE " . $appCode);
-                return self::aliApiResquestModule($host, $path, "GET", $querys, "", $headers);
-            }
-        } catch (Exception $e) {
-            self::$exceptionCode = $e->getCode();
-            self::$exceptionMsg = $e->getMessage();
-            return false;
+        if (empty($phone) || empty($appCode))
+            throw new AliApiException('phone和appCode不能空');
+        else {
+            $host = "http://jisushouji.market.alicloudapi.com";
+            $path = "/shouji/query";
+            $querys = "shouji=" . $phone;
+            $headers = [];
+            array_push($headers, "Authorization:APPCODE " . $appCode);
+            return self::aliApiResquestModule($host, $path, "GET", $querys, "", $headers);
         }
     }
 
@@ -97,28 +75,22 @@ class AliApiPHP
      */
     public static function checkPeopleFace($host, $path, $appCode, $imageData)
     {
-        try {
-            if (empty($host) || empty($path) || empty($appCode))
-                throw new AliApiException('host、path、appCode不能空', AliApiException::PARAMS_NULL);
-            else {
-                $method = "POST";
-                $headers = [];
-                array_push($headers, "Authorization:APPCODE " . $appCode);
-                array_push($headers, "Content-Type" . ":" . "application/json; charset=UTF-8");
-                $bodys = [
-                    "inputs" => [[
-                        "image" => [
-                            "dataType" => 50,
-                            "dataValue" => $imageData
-                        ]]
-                    ]
-                ];
-                return self::aliApiResquestModule($host, $path, "POST", "", $bodys, $headers);
-            }
-        } catch (Exception $e) {
-            self::$exceptionCode = $e->getCode();
-            self::$exceptionMsg = $e->getMessage();
-            return false;
+        if (empty($host) || empty($path) || empty($appCode))
+            throw new AliApiException('host、path、appCode不能空');
+        else {
+            $method = "POST";
+            $headers = [];
+            array_push($headers, "Authorization:APPCODE " . $appCode);
+            array_push($headers, "Content-Type" . ":" . "application/json; charset=UTF-8");
+            $bodys = [
+                "inputs" => [[
+                    "image" => [
+                        "dataType" => 50,
+                        "dataValue" => $imageData
+                    ]]
+                ]
+            ];
+            return self::aliApiResquestModule($host, $path, "POST", "", $bodys, $headers);
         }
     }
 
@@ -152,19 +124,17 @@ class AliApiPHP
         $errorCode = curl_errno($curl);
         $result = false;
         if (empty($ipDataString))
-            throw new AliApiException('curl请求获取的数据为空', AliApiException::REMODE_RETURN_NULL);
+            throw new AliApiException('curl请求获取的数据为空');
         else {
             if ($errorCode === 0) {
                 $ipData = json_decode($ipDataString, true);
-                if (!empty($ipData) && $ipData['code'] === 0) {
-                    $result = $ipData;
-                } else
-                    throw new AliApiException('解析json数据失败', AliApiException::REMODE_RETURN_JSON_ERROR);
-            } else if ($errorCode === CURLE_OPERATION_TIMEOUTED)
-                throw new AliApiException('curl请求超时', AliApiException::CURL_TIMEOUT);
+                $result = !empty($ipData) ? $ipData : $result;
+                return $result;
+            }
+            if ($errorCode === CURLE_OPERATION_TIMEOUTED)
+                throw new AliApiException('curl请求超时');
             else
-                throw new AliApiException('curl请求错误', AliApiException::CURL_ERROR);
+                throw new AliApiException('curl请求错误');
         }
-        return $result;
     }
 }

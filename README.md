@@ -1,18 +1,13 @@
 #阿里接口调用方法(PHP版)
 
 #### 说明：
-* 异常错误码
+* 异常 AliApiException.php
 ```
-    const CURL_TIMEOUT = 0x1000                 //curl请求超时
-    const CURL_ERROR = 0x1001                   //curl异常
-    const REMODE_RETURN_NULL = 0x1002           //请求返还空
-    const REMODE_RETURN_JSON_ERROR = 0x1003     //解析返还的json失败
-    const PARAMS_NULL = 0x1004                  //传入的参数为空
-```
-* 如何查看运行后的异常码和异常消息
-```
-    异常码: AliApiPHP::$exceptionCode;
-    异常消息: AliApiPHP::$exceptionMsg;
+    异常抛出原因
+    1.curl请求超时
+    2.url异常
+    3.请求返还空
+    4.传入的参数为空
 ```
 #### 接口
 appCode用户可以在阿里Api接口处查看，需要购买才能使用
@@ -33,4 +28,14 @@ appCode用户可以在阿里Api接口处查看，需要购买才能使用
     $appCode = 用户appCode
     $imageData = 图片数据，字符串，可以是Base64字符串
 ```
-    
+* 4 . smsSend($data, $appCode)  静态方法,发送短信
+```
+    $data = 对应阿里发送短信接口的$querys,详细查看接口文档
+        例子:[
+            'ParamString'=>变量字符串,
+            'RecNum'=>电话号码,
+            'SignName'=>签名名字,
+            'TemplateCode'=>模板代码
+        ]
+    $appCode = 用户appCode
+```    
