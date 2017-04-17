@@ -7,10 +7,6 @@ class AliApiPHP
 {
     /**
      * 根据IP地址获取用户所有的地理地址
-     * @param $ip
-     * @param $appCode
-     * @return int|mixed|string
-     * @throws AliApiException
      */
     public static function getAddressFromIp($ip, $appCode)
     {
@@ -26,6 +22,9 @@ class AliApiPHP
         }
     }
 
+    /**
+     * 短信发送
+     */
     public static function smsSend($data, $appCode)
     {
         if (empty($data) || empty($appCode))
@@ -45,10 +44,6 @@ class AliApiPHP
 
     /**
      * 根据电话号码获取ip地址
-     * @param $phone
-     * @param $appCode
-     * @return bool|int|mixed|string
-     * @throws AliApiException
      */
     public static function getIpAddrFromPhoneNumber($phone, $appCode)
     {
@@ -66,12 +61,6 @@ class AliApiPHP
 
     /**
      * 人脸识别
-     * @param $host
-     * @param $path
-     * @param $appCode
-     * @param $imageData
-     * @return bool|mixed
-     * @throws AliApiException
      */
     public static function checkPeopleFace($host, $path, $appCode, $imageData)
     {
@@ -96,14 +85,6 @@ class AliApiPHP
 
     /**
      * curl请求模板
-     * @param $host
-     * @param $path
-     * @param $method
-     * @param $querys
-     * @param $bodys
-     * @param $headers
-     * @return bool|mixed
-     * @throws AliApiException
      */
     public static function aliApiResquestModule($host, $path, $method, $querys, $bodys, $headers)
     {

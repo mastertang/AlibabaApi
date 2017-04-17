@@ -9,6 +9,6 @@ class AliApiException extends \Exception
 
     public function __toString()
     {
-        return __CLASS__ . ":[{Line:$this->line}]: {$this->message}\n";
+        return __CLASS__ . ":[{Line:$this->getLine()}]: {$this->getMessage()}\n";
     }
 }
